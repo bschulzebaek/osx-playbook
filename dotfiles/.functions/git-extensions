@@ -1,0 +1,128 @@
+#!/usr/bin/env bash
+
+__git_ext_require_repository() {
+    git rev-parse HEAD > /dev/null 2>&1 && return 0
+
+    echo "Not in a git repository: $PWD"
+    return 1
+}
+
+__git_ext_require_changes() {
+    if [[ `git status --porcelain` ]]; then
+        return 0
+    fi
+
+    echo "No changes in current repository: $PWD"
+    return 1
+}
+
+__git_ext_fzf() {
+    fzf \
+        --ansi \
+        --no-sort \
+        --tiebreak=index \
+        --preview-window=right:60% \
+        "$@"
+}
+
+__git_ext_pick_branch() {
+    echo $(git branch -r | sed 's#^ *origin/##' | cat - <(git branch --format='%(refname:short)') | grep -v '^HEAD ->' | sort -u | __git_ext_fzf)
+}
+
+browse-log() {
+    __git_ext_require_repository || return
+    
+    git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" | \
+        __git_ext_fzf \
+            --preview 'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1 ; }; f {}' \
+            --header "Enter: Fullscreen preview" \
+            --bind "ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up,enter:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {} FZF-EOF"
+}
+
+browse-diff() {
+    __git_ext_require_repository || return
+
+    local range="@"
+
+    if [ $# -eq 0 ]; then
+        __git_ext_require_changes || return
+    else
+        range="$1"
+    fi
+
+    local root=$(git rev-parse --show-toplevel)
+
+    if [ -n "$root" ]; then
+        pushd "$root" > /dev/null
+    fi
+
+    git diff $range --name-only | \
+        __git_ext_fzf  \
+            --multi \
+            --header="(Shift +) Tab: select files & move to next line" \
+            --preview="git diff $range --patch-with-stat --color=always -- {-1}" \
+            --bind "ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up"
+
+    if [ -n "$root" ]; then
+        popd > /dev/null
+    fi
+}
+
+better-switch() {
+    __git_ext_require_repository || return
+
+    if [ $# -eq 0 ]; then
+        local ref=$(__git_ext_pick_branch)
+
+        if [ -z ${ref} ]; then
+            return 0
+        fi
+
+        git switch $ref
+    fi
+ 
+    git switch "$@"
+}
+
+open-remote() {
+    __git_ext_require_repository || return
+
+    local remotes=$(git remote -v | awk '{print $2}' | sort -u | sed 's/:/\//' | sed 's/.git$//' | sed 's/git@//' | sed s'/^/https:\/\//')
+
+    if [ $(echo "$remotes" | wc -l) -eq  1 ]; then
+        safe-open-url $remotes
+        
+        return 0
+    fi
+
+    local url=$(echo "$remotes" | __git_ext_fzf --header 'Pick a remote to open in the browser: ')
+    
+    if [ "$url" == "" ]; then
+        return 0
+    fi
+
+    safe-open-url $url
+}
+
+file-undo-commit() {
+    __git_ext_require_repository || return
+
+    local COMMIT_SHA="$1"
+
+    if [ -z ${COMMIT_SHA} ]; then 
+        echo "Missing required argument \"COMMIT_SHA\""
+        exit 0
+    fi
+
+    local FILE_NAME="$2"
+
+    if [ -z ${FILE_NAME} ]; then 
+        echo "Missing required argument \"FILE_NAME\""
+        exit 0
+    fi
+
+    git show $COMMIT_SHA -- $FILE_NAME | git apply -R
+}

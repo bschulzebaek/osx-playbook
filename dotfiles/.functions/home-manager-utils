@@ -1,0 +1,18 @@
+#!/bin/bash
+
+home-rebuild() {
+    local cmd=""
+    
+    if command -v home-manager ; then
+        cmd="home-manager"
+    elif command -v darwin-rebuild ; then
+        cmd="darwin-rebuild"
+    fi
+
+    if [ -z ${cmd} ]; then
+        echo "Rebuild command not found! Check your home-manager setup..."
+        return 1
+    fi
+
+    $cmd switch && exec bash
+}

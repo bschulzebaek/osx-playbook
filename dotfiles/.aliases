@@ -1,0 +1,20 @@
+#!/bin/bash
+
+alias cc="clear"
+alias ll="ls -loGAF --color=auto"
+alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+
+alias sw="better-switch"
+alias l1="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'"
+alias l2="git log --all --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'"
+alias p="git push"
+alias s="git status"
+alias d="browse-diff"
+alias l="browse-log"
+alias fp="git fetch && git pull"
+alias c="git commit"
+
+alias vim="nvim"
+alias wf="workspace-finder"
+
+alias psf="ps -aefr | fzf"

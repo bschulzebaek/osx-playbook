@@ -1,0 +1,16 @@
+[user]
+	name = Benedikt Schulze Baek
+	email = benedikt@schulze-baek.de
+	signingkey = /Users/baek/.ssh/id_rsa.pub
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
+[core]
+	autocrlf = false
+	fileMode = false
+	editor = nvim
+[init]
+	defaultBranch = master
+[safe]
+	directory = *

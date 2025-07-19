@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+function platform-setup() {
+    composer setup
+
+    APP_ENV=prod bin/console framework:demodata 
+
+    bin/console dal:refresh:index
+}

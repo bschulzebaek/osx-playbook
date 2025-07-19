@@ -1,0 +1,14 @@
+#!/usr/bin/env bash 
+
+safe-open-url() {
+    case "$(uname)" in
+        Linux*) 
+            xdg-open "$1" ;;
+        Darwin*)
+            open "$1" ;;
+        CYGWIN*|MINGW*|MSYS*)
+            start "$1" ;;
+    *)  
+        echo "Unsupported system"
+    esac
+}

@@ -1,0 +1,15 @@
+$include /etc/inputrc
+
+set completion-ignore-case on
+set completion-query-items 0
+set show-all-if-unmodified off
+set show-all-if-ambiguous off
+set colored-completion-prefix on
+set menu-complete-display-prefix off
+set colored-stats on
+set visible-stats on
+"\C-j": menu-complete
+"\C-k": menu-complete-backward
+TAB: menu-complete
+"\e[A": history-search-backward
+"\e[B": history-search-forward

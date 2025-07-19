@@ -1,0 +1,9 @@
+- import_playbook: main.yaml
+- hosts: localhost
+  tasks:
+    - name: Install private Tools
+      community.general.homebrew_cask:
+        name: '{{ item }}'
+      ignore_errors: yes
+      with_items:
+        - webstorm

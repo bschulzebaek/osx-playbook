@@ -1,0 +1,15 @@
+- import_playbook: main.yaml
+- hosts: localhost
+  tasks:
+    - name: Install tools
+      community.general.homebrew_cask:
+        name: '{{ item }}'
+      ignore_errors: yes
+      with_items:
+        - phpstorm
+        - slack
+        - figma
+        - microsoft-teams
+        
+    - name: Configure git user email
+      ansible.builtin.command: git config --global "user.email" "b.schulze-baek@shopware.com"
