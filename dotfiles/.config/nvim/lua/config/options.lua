@@ -39,3 +39,5 @@ opt.splitbelow = true
 opt.laststatus = 3
 
 opt.lazyredraw = true
+
+vim.g.snacks_animate = false
