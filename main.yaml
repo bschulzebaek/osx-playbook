@@ -63,6 +63,11 @@
     - name: Stow dotfiles
       ansible.builtin.shell:
         cmd: "stow -d {{playbook_dir}}/dotfiles -t ~/ ."
+        
+    - name: Create .gitconfig.local
+      file:
+        path: "~/.gitconfig.local"
+        state: touch
 
     - name: Setup development directory
       ansible.builtin.file:

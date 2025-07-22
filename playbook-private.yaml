@@ -7,3 +7,10 @@
       ignore_errors: yes
       with_items:
         - webstorm
+    
+    - name: Configure git user email
+      copy:
+        dest: "~/.gitconfig.local"
+        content: |
+          [user]
+              email = benedikt@schulze-baek.de
