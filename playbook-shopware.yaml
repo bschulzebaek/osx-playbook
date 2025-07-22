@@ -8,12 +8,13 @@
       with_items:
         - phpstorm
         - slack
+        - miro
         - figma
         - microsoft-teams
-      
+
     - name: Configure git user email
       copy:
-          dest: "~/.gitconfig.local"
-          content: |
-            [user]
-                email = b.schulze-baek@shopware.com
+        dest: "~/.gitconfig.local"
+        content: |
+          [user]
+              email = b.schulze-baek@shopware.com
