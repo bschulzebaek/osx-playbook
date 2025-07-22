@@ -30,14 +30,6 @@ make install-shopware
 
 ## Manual Steps
 
-### Git User Email
-Create a `.gitconfig.local` file to globally configure the git user.email option. This file will be autoloaded by the `.gitconfig` in this repository.
-
-```
-[user]
-     email = <email>
-```
-
 ### Application Shortcuts
 Manually assign Raycast shortcuts to switch to specific applications. Hotkey settings can be found at `cmd+space` > `cmd+,` > "Extensions".
 
