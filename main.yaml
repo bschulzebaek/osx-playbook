@@ -2,16 +2,15 @@
 - hosts: localhost
   tasks:
     - name: Xcode tools
-      command: 'xcode-select --install'
+      command: "xcode-select --install"
       ignore_errors: yes
-      
+
     - name: Tap homebrew repositories
       community.general.homebrew_tap:
-        name: '{{ item }}'
+        name: "{{ item }}"
       with_items:
-        - menubar-apps/menubar-apps
-        - FelixKratz/formulae
-        
+        - FelixKratz/formulae # Includes the package "borders"
+
     - name: Install homebrew casks
       community.general.homebrew_cask:
         name: '{{ item }}'
@@ -24,8 +23,10 @@
         - rectangle
         - raycast
         - ghostty
+        - doll
+        - unnaturalscrollwheels
         - font-jetbrains-mono
-        
+
     - name: Install homebrew packages
       community.general.homebrew:
         name:
@@ -41,43 +42,43 @@
           - direnv
           - neofetch
           - stow
-          - pullbar
           - borders
+          - fd
 
           - node
           - python
           - go
-    
+
     - name: Install devenv (run scripts/install-nix-devenv.sh)
       shell: ./scripts/setup-devenv.sh
       register: devenv_script_output
-    - name: 
+    - name:
       debug:
         msg: "{{ devenv_script_output.stdout_lines }}"
-              
+
     - name: Install atuin
       ansible.builtin.shell:
         cmd: "curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh"
-              
+
     - name: Stow dotfiles
       ansible.builtin.shell:
-        cmd: "stow -d {{playbook_dir}}/dotfiles -t ~/ ."  
-        
+        cmd: "stow -d {{playbook_dir}}/dotfiles -t ~/ ."
+
     - name: Setup development directory
       ansible.builtin.file:
         path: ~/development
         state: directory
-        mode: '0755' 
-        
+        mode: "0755"
+
     - name: Install tmux plugin manager
       ansible.builtin.git:
-        repo: 'https://github.com/tmux-plugins/tpm.git'
+        repo: "https://github.com/tmux-plugins/tpm.git"
         dest: ~/.tmux/plugins/tpm
         update: no
-        
+
     - name: Start homebrew services
       community.general.homebrew_services:
-        name: '{{ item }}'
+        name: "{{ item }}"
         state: present
       with_items:
         - borders

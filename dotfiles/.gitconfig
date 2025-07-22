@@ -1,7 +1,8 @@
+[include]
+	path = ~/.gitconfig.local
 [user]
 	name = Benedikt Schulze Baek
-	email = benedikt@schulze-baek.de
-	signingkey = /Users/baek/.ssh/id_rsa.pub
+	signingkey = ~/.ssh/id_ed25519.pub
 [commit]
 	gpgsign = true
 [gpg]

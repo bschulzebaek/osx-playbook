@@ -28,6 +28,37 @@ make install-shopware
 # ansible-playbook -i "localhost," -c local playbook-shopware.yaml
 ```
 
+## Manual Steps
+
+### Git User Email
+Create a `.gitconfig.local` file to globally configure the git user.email option. This file will be autoloaded by the `.gitconfig` in this repository.
+
+```
+[user]
+     email = <email>
+```
+
+### Application Shortcuts
+Manually assign Raycast shortcuts to switch to specific applications. Hotkey settings can be found at `cmd+space` > `cmd+,` > "Extensions".
+
+Setup Capslock as the "hyper" key in Raycast.
+
+| Application | Shortcut    |
+|-------------|-------------|
+| Main Browser | `hyper + 1` |
+| Main IDE     | `hyper + 2` |
+| Terminal    | `hyper + 3` |
+| Slack       | `hyper + 4` |
+
+### Raycast Extensions
+
+* [GitHub](https://raycast.com/raycast/github/)
+* [Git Repos](https://raycast.com/moored/git-repos)
+* [Bookmarks](https://raycast.com/raycast/browser-bookmarks)
+* [System Monitor](https://raycast.com/hossammourad/raycast-system-monitor)
+
+## Additional Information
+
 ### NeoVim
 Configuration can be found in [dotfiles/.config/nvim/](dotfiles/.config/nvim/).
 
