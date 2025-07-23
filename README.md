@@ -1,7 +1,9 @@
 # OSX Playbook
+
 Automated MacOS setup for development using Ansible.
 
 ## Prerequisites
+
 * [Homebrew](https://brew.sh/)
 * [Git](https://git-scm.com/)
 * [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
@@ -14,6 +16,7 @@ brew install git ansible
 ```
 
 ## Installation
+
 Using the make commands may require to run `xcode-select --install` beforehand.
 
 ```bash
@@ -31,6 +34,7 @@ make install-shopware
 ## Manual Steps
 
 ### Application Shortcuts
+
 Manually assign Raycast shortcuts to switch to specific applications. Hotkey settings can be found at `cmd+space` > `cmd+,` > "Extensions".
 
 Setup Capslock as the "hyper" key in Raycast.
@@ -41,6 +45,7 @@ Setup Capslock as the "hyper" key in Raycast.
 | Main IDE     | `hyper + 2` |
 | Terminal    | `hyper + 3` |
 | Slack       | `hyper + 4` |
+| Teams | `hyper + 5` |
 
 ### Raycast Extensions
 
@@ -52,12 +57,16 @@ Setup Capslock as the "hyper" key in Raycast.
 ## Additional Information
 
 ### NeoVim
+
 Configuration can be found in [dotfiles/.config/nvim/](dotfiles/.config/nvim/).
 
 ### Nix, Devenv, Cachix
+
 These are installed via external installers (see `scripts/install-nix-devenv.sh`).
 
 To uninstall them, run:
+
 ```bash
 sudo /nix/nix-installer uninstall
 ```
+
