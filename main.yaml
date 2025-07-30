@@ -18,6 +18,7 @@
       with_items:
         - brave-browser
         - bitwarden
+        - claude-code
         - iterm2
         - postman
         - rectangle
