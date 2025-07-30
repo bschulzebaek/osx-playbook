@@ -13,7 +13,7 @@
 
     - name: Install homebrew casks
       community.general.homebrew_cask:
-        name: '{{ item }}'
+        name: "{{ item }}"
       ignore_errors: yes
       with_items:
         - brave-browser
@@ -44,6 +44,8 @@
           - stow
           - borders
           - fd
+          - ollama
+          - gemini-cli
 
           - node
           - python
@@ -63,7 +65,7 @@
     - name: Stow dotfiles
       ansible.builtin.shell:
         cmd: "stow -d {{playbook_dir}}/dotfiles -t ~/ ."
-        
+
     - name: Create .gitconfig.local
       file:
         path: "~/.gitconfig.local"
