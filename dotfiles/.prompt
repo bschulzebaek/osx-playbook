@@ -8,7 +8,7 @@ parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(\.*\)/ \1/'
 }
 
-PS1='\[\e[30;107m\] \W$(parse_git_branch) \[\e[0m\] '
+PROMPT='\[\e[30;107m\] \W$(parse_git_branch) \[\e[0m\] '
 
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"

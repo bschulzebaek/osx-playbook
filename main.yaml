@@ -9,7 +9,6 @@
       community.general.homebrew_tap:
         name: "{{ item }}"
       with_items:
-        - FelixKratz/formulae # Includes the package "borders"
 
     - name: Install homebrew casks
       community.general.homebrew_cask:
@@ -24,7 +23,6 @@
         - rectangle
         - raycast
         - ghostty
-        - doll
         - unnaturalscrollwheels
         - font-jetbrains-mono
 
@@ -43,7 +41,6 @@
           - direnv
           - neofetch
           - stow
-          - borders
           - fd
           - ollama
           - gemini-cli
