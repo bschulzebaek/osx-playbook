@@ -80,10 +80,3 @@
         repo: "https://github.com/tmux-plugins/tpm.git"
         dest: ~/.tmux/plugins/tpm
         update: no
-
-    - name: Start homebrew services
-      community.general.homebrew_services:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - borders
