@@ -15,6 +15,7 @@ alias fp="git fetch && git pull"
 alias c="git commit"
 
 alias vim="nvim"
+alias lg="lazygit"
 alias wf="workspace-finder"
 
 alias psf="ps -aefr | fzf"
